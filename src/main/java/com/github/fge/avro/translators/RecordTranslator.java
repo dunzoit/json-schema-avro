@@ -96,7 +96,9 @@ final class RecordTranslator
             fieldSchema = field.schema();
             fieldType = fieldSchema.getType();
             translator = AvroTranslators.getTranslator(fieldType);
-            required.add(fieldName);
+            final JsonNode defaultValue = field.defaultValue();
+            if (value == null)
+                required.add(fieldName);
             ptr = JsonPointer.of("properties", fieldName);
             propertyNode = FACTORY.objectNode();
             properties.put(fieldName, propertyNode);
